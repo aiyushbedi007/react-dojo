@@ -5,9 +5,10 @@ const Home = () => {
     const [name, setName] = useState('Ashu');
     const [age , setAge] = useState(26)
 
-    const handleclick = () => {
+    const handleclick = (e) => {
         setName('Sallo');
         setAge(18);
+        console.log(e.target);
     }
 
     const [blogs, setBlogs] = useState([
