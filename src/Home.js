@@ -11,6 +11,11 @@ const Home = () => {
         console.log(e.target);
     }
 
+    const handleDelete = (id) => {
+      const newBlogs = blogs.filter(blog => blog.id !== id);
+      setBlogs(newBlogs);
+    }
+
     const [blogs, setBlogs] = useState(null);
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
@@ -19,7 +24,7 @@ const Home = () => {
       fetch('http://localhost:8000/blogs')
         .then(res => {
           if(!res.ok){
-            throw Error('could not fetch data');
+            throw Error('#404 could not fetch data');
           }
           return res.json();
         })
@@ -41,7 +46,8 @@ const Home = () => {
           <button onClick={handleclick}>Change Name</button>
           {error && <div>{error}</div>}
           {isPending && <div>Loading.....</div>} 
-          {blogs && <BlogList blogs={blogs} title="All Blogs" />}
+          {blogs && <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />}
+          {blogs && <BlogList blogs={blogs.filter((blog)=>blog.author==='mario')} title="Mario's Blogs" handleDelete={handleDelete} />}
        </div> 
      );
 }
